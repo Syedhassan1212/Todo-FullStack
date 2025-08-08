@@ -1,7 +1,7 @@
-
 const mongoose = require("mongoose");
 const { string } = require("zod");
 require('dotenv').config();
+
 mongoose.connect(process.env.DB_USER)
 .then(() => console.log('MongoDB Connected'))
   .catch(err => console.error(err));
