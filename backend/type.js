@@ -1,17 +1,16 @@
-const zod = require('zod')
+const zod = require('zod');
 
-const createTodo = zod.object ({
-    name : zod.string(),
-    description : zod.string(),
-    //complete : zod.boolean
-})
-   
+const createTodo = zod.object({
+    title: zod.string(),
+    description: zod.string(),
+    // completed: zod.boolean() // optional if you ever want to allow user to set it
+});
+
 const updateTodo = zod.object({
-id: zod.string(),
-})
+    id: zod.string(),
+});
 
-// export modules
 module.exports = {
-    createTodo  : createTodo ,
-    updateTodo : updateTodo,
-}
+    createTodo,
+    updateTodo,
+};

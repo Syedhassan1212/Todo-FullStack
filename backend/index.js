@@ -1,56 +1,54 @@
- const express = require('express');
- const {createTodo} = require("./type")
- const {updateTodo} = require("./type");
+const express = require('express');
+const { createTodo, updateTodo } = require("./type");
 const { todo } = require('./db');
+
 const app = express();
-app.use (express.json())
+app.use(express.json());
 
-app.post('/todo' , async function(req,res){
+app.post('/todo', async function (req, res) {
     const createPayload = req.body;
-    const parsePayload = createTodo.safeParse(createPayload)
-    if (!parsePayload.success){
+    const parsePayload = createTodo.safeParse(createPayload);
+    if (!parsePayload.success) {
         res.status(411).json({
             msg: "you send the wrong inputs"
-        })
-        return;}
-
-    await todo.create({
-        title : createPayload.title,
-        description: createPayload.description,
-        completed :false,
-    })
-
-        res.json({
-        msg:"todo created"
-    })
-})
-
-
-app.get('/todos' , async function(req,res){
-    const todos = await todo.find({});
-    res.json({
-        todos
-    })
-})
-
-
-app.put('/complete' , async function(req,res){
-    const updatePayload = req.body;
-    const parsePayload = updateTodo.safeParse(updatePayload)
-    if (!parsePayload.success){
-        res.status(411).json({
-            msg: "you send the wrong inputs"
-        })
+        });
         return;
     }
-    await todo.update ({
-        _id: req.body.id},{
-        completed : true,
-    })
+
+    await todo.create({
+        title: createPayload.title,
+        description: createPayload.description,
+        completed: false,
+    });
+
     res.json({
-        msg : "todo mark as completed"
-    })
-})
+        msg: "todo created"
+    });
+});
 
+app.get('/todos', async function (req, res) {
+    const todos = await todo.find({});
+    res.json({ todos });
+});
 
-app.listen(3000)
+app.put('/complete', async function (req, res) {
+    const updatePayload = req.body;
+    const parsePayload = updateTodo.safeParse(updatePayload);
+    if (!parsePayload.success) {
+        res.status(411).json({
+            msg: "you send the wrong inputs"
+        });
+        return;
+    }
+
+    await todo.updateOne(
+        { _id: req.body.id },
+        { completed: true }
+    );
+
+    res.json({
+        msg: "todo mark as completed"
+    });
+});
+
+app.listen(3000, () => console.log("Server running on port 3000"));
