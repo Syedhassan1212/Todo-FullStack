@@ -5,7 +5,7 @@ import { Todos } from './components/Todos.jsx'
 function App() {
   
 const [todos , setTodos] = useState([]);
-fetch("htt[//localhost:3000/todos")
+fetch("http://localhost:3000/todos")
 .then(async function(){
   const json = await resizeBy.json();
 setTodos(json.todos)
@@ -14,13 +14,7 @@ setTodos(json.todos)
    
       <div>
 <CreateTodo></CreateTodo>
-<Todos todos={[
-  {
-  title: "asd",
-  description: "asdef des" , 
-  completed : false
-  }
-]} ></Todos>
+<Todos todos = {todos} ></Todos>
   </div>    
   
   )
