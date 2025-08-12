@@ -31,6 +31,16 @@ app.get('/todos', async function (req, res) {
     res.json({ todos });
 });
 
+app.delete('/todo/:id', async function (req, res) {
+    try {
+        await todo.deleteOne({ _id: req.params.id });
+        res.json({ msg: "todo deleted" });
+    } catch (err) {
+        res.status(500).json({ msg: "error deleting todo" });
+    }
+});
+
+
 app.put('/complete', async function (req, res) {
     const updatePayload = req.body;
     const parsePayload = updateTodo.safeParse(updatePayload);
