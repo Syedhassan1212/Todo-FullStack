@@ -1,7 +1,7 @@
-import { useState, useEffect } from 'react'
-import './App.css'
-import { CreateTodo } from './components/CreateTodo.jsx'
-import { Todos } from './components/Todos.jsx'
+import { useState, useEffect } from "react";
+import "./App.css";
+import { CreateTodo } from "./components/CreateTodo.jsx";
+import { Todos } from "./components/Todos.jsx";
 
 function App() {
   const [todos, setTodos] = useState([]);
@@ -12,7 +12,7 @@ function App() {
         const json = await res.json();
         setTodos(json.todos);
       })
-      .catch(err => console.error("Error fetching todos:", err));
+      .catch((err) => console.error("Error fetching todos:", err));
   };
 
   useEffect(() => {
@@ -21,6 +21,7 @@ function App() {
 
   return (
     <div>
+      <h1>Todo App</h1>
       <CreateTodo onAdd={fetchTodos} />
       <Todos todos={todos} onUpdate={fetchTodos} />
     </div>
